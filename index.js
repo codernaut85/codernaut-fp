@@ -1,6 +1,37 @@
 
-export const fpUnique = x => Array.from(new Set(x));
+
+export const flatten = x => x.flat();
+
+
+
+export const pipe = (...fns) => (x) => fns.reduce((acc, curr) => curr(acc), x);
+
+
+
+export const reverse = x => x.reverse();
+
+
+
+export const self = x => x;
+
+
+
+export const sort = x => x.sort();
+
+
+
+export const unique = x => Array.from(new Set(x));
+
+
+
+
+
 
 export default {
-    fpUnique
+    flatten,
+    pipe,
+    reverse,
+    self,
+    sort,
+    unique,
 };
