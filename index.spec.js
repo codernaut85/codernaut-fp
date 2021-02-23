@@ -1,6 +1,8 @@
 
 import { 
     flatten,
+    map,
+    pipe,
     reverse,
     self,
     sort,
@@ -16,7 +18,45 @@ describe('flatten', () => {
         ];
         expect(flatten(data)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9]);
     });
+});
 
+describe('pipe', () => {
+    test('it composes functions from an amount of function arguments', () => {
+        const data = [
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9],
+            [4, 5, 6]
+        ];
+
+        const transform = pipe(
+            flatten,
+            unique,
+            map(x => x + 1),
+            reverse
+        );
+
+        expect(transform(data)).toEqual([10, 9, 8, 7, 6, 5, 4, 3, 2]);
+    });
+});
+
+
+describe('map', () => {
+    test('it iterates over an array', () => {
+        const data = [1, 2, 3, 4, 5, 6];
+        const result = pipe(
+            map(self)
+        )(data);
+        expect(result).toEqual(data);
+    });
+
+    test('it iterates over an array and runs each array element through a transformer function', () => {
+        const data = [1, 2, 3, 4, 5, 6];
+        const result = pipe(
+            map(x => x + 1)
+        )(data);
+        expect(result).toEqual([2, 3, 4, 5, 6, 7]);
+    });
 });
 
 describe('reverse', () => {
