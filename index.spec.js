@@ -1,5 +1,7 @@
 import { 
     add,
+    allPass,
+    anyPass,
     divide,
     flatten,
     map,
@@ -17,6 +19,34 @@ describe('add', () => {
     test('it adds two numbers', () => {
         expect(add(3, 4)).toEqual(7);
         expect(add(5)(6)).toEqual(11);
+    });
+});
+
+describe('allPass', () => {
+    test('it checks whether all items in a list satisfy a predicate', () => {
+        const isEven = x => x % 2 === 0;
+        const isString = x => typeof(x) === 'string';
+
+        expect(allPass(isEven, [2, 4, 6, 8])).toEqual(true);
+        expect(allPass(isEven, [2, 3, 6, 7])).toEqual(false);
+
+        expect(allPass(isString, ['cat', 'dog', 'bird'])).toEqual(true);
+        expect(allPass(isString, ['cat', 5, 'bird'])).toEqual(false);
+    });
+});
+
+describe('anyPass', () => {
+    test('it checks whether any items in a list satisfy a predicate', () => {
+        const isEven = x => x % 2 === 0;
+        const isString = x => typeof (x) === 'string';
+
+        expect(anyPass(isEven, [1, 3, 4, 5, 7])).toEqual(true);
+        expect(anyPass(isEven, [1, 2, 3, 4, 5, 7, 8, 9, 10])).toEqual(true);
+        expect(anyPass(isEven, [13, 15, 17, 19, 21])).toEqual(false);
+
+        expect(anyPass(isString, ['cat', 'dog', 'bird'])).toEqual(true);
+        expect(anyPass(isString, ['cat', 5, 'bird'])).toEqual(true);
+        expect(anyPass(isString, [null, 5, { name: 'cat' }])).toEqual(false);
     });
 });
 

@@ -13,6 +13,10 @@ export const curry = func => {
 
 export const pipe = (...fns) => (x) => fns.reduce((acc, curr) => curr(acc), x);
 
+export const allPass = curry((x, y) => y.every(x));
+
+export const anyPass = curry((x, y) => y.some(x));
+
 export const add = curry((x, y) => x + y);
 
 export const divide = curry((x, y) => y / x);
